@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,6 +34,22 @@ public class WeatherData extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_daily:
+                    Toast.makeText(WeatherData.this, "Recents", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.action_map:
+                    Toast.makeText(WeatherData.this, "Favorites", Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.action_history:
+                    Toast.makeText(WeatherData.this, "Nearby", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+            return true;
+        });
 
         // get intent from other activity and get string
         Intent intent = getIntent();
