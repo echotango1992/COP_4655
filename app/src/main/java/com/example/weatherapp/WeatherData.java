@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,16 +25,20 @@ import org.json.JSONObject;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class WeatherData extends AppCompatActivity {
     //declaring all the items that are going to be saved form the JSON reponse
     public String zip_OR_city, temp, feel_like, min_Temp, max_Temp, humidity, pressure, lat, lon, country, description, sunrise, sunset;
     TextView weather_Tittle, CO, feels, minTemp, maxTemp, humid, press, desc, sunriseT, sunsetT;
+    TextToSpeech t1;
+    Button b1;
     private static final DecimalFormat df =  new DecimalFormat("0.00");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation2);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
