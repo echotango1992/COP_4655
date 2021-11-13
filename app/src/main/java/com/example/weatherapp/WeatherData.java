@@ -42,7 +42,12 @@ public class WeatherData extends AppCompatActivity {
                     Toast.makeText(WeatherData.this, "Recents", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.action_map:
-                    Toast.makeText(WeatherData.this, "Favorites", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WeatherData.this, "Map Go!", Toast.LENGTH_SHORT).show();
+                    Intent mapIntent =  new Intent( WeatherData.this, MapsActivity.class);
+                    mapIntent.putExtra("latitude", lat);
+                    mapIntent.putExtra("longitude", lon);
+                    mapIntent.putExtra("city", zip_OR_city);
+                    startActivity(mapIntent);
                     break;
                 case R.id.action_history:
                     Toast.makeText(WeatherData.this, "Nearby", Toast.LENGTH_SHORT).show();
