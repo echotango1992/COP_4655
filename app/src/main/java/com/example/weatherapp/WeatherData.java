@@ -39,7 +39,10 @@ public class WeatherData extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_daily:
-                    Toast.makeText(WeatherData.this, "Recents", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WeatherData.this, "Weather Go!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(),WeatherData.class);
+
+                    startActivity(intent);
                     break;
                 case R.id.action_map:
                     Toast.makeText(WeatherData.this, "Map Go!", Toast.LENGTH_SHORT).show();
@@ -93,16 +96,6 @@ public class WeatherData extends AppCompatActivity {
         //add the request to the RequestQueue
         queue.add(stringRequest);
 
-        map_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mapIntent =  new Intent( WeatherData.this, MapsActivity.class);
-                mapIntent.putExtra("latitude", lat);
-                mapIntent.putExtra("longitude", lon);
-                mapIntent.putExtra("city", zip_OR_city);
-                startActivity(mapIntent);
-            }
-        });
 
     }// end of onCreate
 
