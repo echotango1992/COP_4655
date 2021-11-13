@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -35,14 +33,9 @@ public class WeatherData extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation2);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.action_home:
-                    Toast.makeText(WeatherData.this, "Home Go!", Toast.LENGTH_SHORT).show();
-                    Intent homeIntent =  new Intent( WeatherData.this, MainActivity.class);
-                    startActivity(homeIntent);
-                    break;
                 case R.id.action_daily:
                     Toast.makeText(WeatherData.this, "Home Go!", Toast.LENGTH_SHORT).show();
                     Intent dailyIntent =  new Intent( WeatherData.this, WeatherData.class);
@@ -58,7 +51,7 @@ public class WeatherData extends AppCompatActivity {
                     break;
                 case R.id.action_history:
                     Toast.makeText(WeatherData.this, "History Go!", Toast.LENGTH_SHORT).show();
-                    Intent historyIntent =  new Intent( WeatherData.this, HistoryData.class);
+                    Intent historyIntent =  new Intent( WeatherData.this, HistoryActivity.class);
                     startActivity(historyIntent);
                     break;
             }
