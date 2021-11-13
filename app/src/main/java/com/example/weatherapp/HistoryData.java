@@ -24,6 +24,11 @@ public class HistoryData extends AppCompatActivity {
                     Intent homeIntent = new Intent(HistoryData.this, MainActivity.class);
                     startActivity(homeIntent);
                     break;
+                case R.id.action_history:
+                    Toast.makeText(HistoryData.this, "Home Go!", Toast.LENGTH_SHORT).show();
+                    Intent historyIntent = new Intent(HistoryData.this, HistoryData.class);
+                    startActivity(historyIntent);
+                    break;
                 case R.id.action_map:
                     Toast.makeText(HistoryData.this, "Map Go!", Toast.LENGTH_SHORT).show();
                     Intent mapIntent = new Intent(HistoryData.this, MapsActivity.class);
@@ -34,6 +39,8 @@ public class HistoryData extends AppCompatActivity {
                     break;
                 case R.id.action_daily:
                     Toast.makeText(HistoryData.this, "Daily", Toast.LENGTH_SHORT).show();
+                    Intent dailyIntent = new Intent(HistoryData.this, WeatherData.class);
+                    startActivity(dailyIntent);
                     break;
             }
             return true;

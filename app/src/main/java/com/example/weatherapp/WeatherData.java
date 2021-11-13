@@ -43,6 +43,11 @@ public class WeatherData extends AppCompatActivity {
                     Intent homeIntent =  new Intent( WeatherData.this, MainActivity.class);
                     startActivity(homeIntent);
                     break;
+                case R.id.action_daily:
+                    Toast.makeText(WeatherData.this, "Home Go!", Toast.LENGTH_SHORT).show();
+                    Intent dailyIntent =  new Intent( WeatherData.this, WeatherData.class);
+                    startActivity(dailyIntent);
+                    break;
                 case R.id.action_map:
                     Toast.makeText(WeatherData.this, "Map Go!", Toast.LENGTH_SHORT).show();
                     Intent mapIntent =  new Intent( WeatherData.this, MapsActivity.class);
@@ -52,7 +57,9 @@ public class WeatherData extends AppCompatActivity {
                     startActivity(mapIntent);
                     break;
                 case R.id.action_history:
-                    Toast.makeText(WeatherData.this, "Nearby", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(WeatherData.this, "History Go!", Toast.LENGTH_SHORT).show();
+                    Intent historyIntent =  new Intent( WeatherData.this, HistoryData.class);
+                    startActivity(historyIntent);
                     break;
             }
             return true;
