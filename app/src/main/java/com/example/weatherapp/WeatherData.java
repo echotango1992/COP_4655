@@ -62,8 +62,17 @@ public class WeatherData extends AppCompatActivity {
         btnText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                textToSpeech.speak(weather_Tittle.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
                 textToSpeech.speak(CO.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
-                Toast.makeText(getApplicationContext(), country,Toast.LENGTH_SHORT).show();
+                textToSpeech.speak(feels.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                textToSpeech.speak(minTemp.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                textToSpeech.speak(maxTemp.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                textToSpeech.speak(humid.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                textToSpeech.speak(press.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                textToSpeech.speak(desc.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                textToSpeech.speak(sunriseT.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                textToSpeech.speak(sunsetT.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                Toast.makeText(getApplicationContext(), "Speaking",Toast.LENGTH_SHORT).show();
             }
         });
 
