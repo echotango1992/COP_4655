@@ -38,11 +38,10 @@ public class WeatherData extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
-                case R.id.action_daily:
-                    Toast.makeText(WeatherData.this, "Weather Go!", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getApplicationContext(),WeatherData.class);
-
-                    startActivity(intent);
+                case R.id.action_home:
+                    Toast.makeText(WeatherData.this, "Home Go!", Toast.LENGTH_SHORT).show();
+                    Intent homeIntent =  new Intent( WeatherData.this, MainActivity.class);
+                    startActivity(homeIntent);
                     break;
                 case R.id.action_map:
                     Toast.makeText(WeatherData.this, "Map Go!", Toast.LENGTH_SHORT).show();
@@ -74,8 +73,6 @@ public class WeatherData extends AppCompatActivity {
         desc = (TextView) findViewById(R.id.desc_Value);
         sunriseT = (TextView) findViewById(R.id.sunrise_Value);
         sunsetT = (TextView) findViewById(R.id.sunset_Value);
-        //declaring button
-        Button map_Button = (Button) findViewById(R.id.map_BTN);
 
         //doing the request with volley
         RequestQueue queue = Volley.newRequestQueue(this);
