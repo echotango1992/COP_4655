@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -31,16 +34,41 @@ public class WeatherData extends AppCompatActivity {
     //declaring all the items that are going to be saved form the JSON reponse
     public String zip_OR_city, temp, feel_like, min_Temp, max_Temp, humidity, pressure, lat, lon, country, description, sunrise, sunset;
     TextView weather_Tittle, CO, feels, minTemp, maxTemp, humid, press, desc, sunriseT, sunsetT;
-    TextToSpeech t1;
-    Button b1;
+    TextToSpeech textToSpeech;
+    Button btnText;
     private static final DecimalFormat df =  new DecimalFormat("0.00");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation2);
+        Button btnText = (Button) findViewById(R.id.btnText);
+
+        // create an object textToSpeech and adding features into it
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+
+                // if No error is found then only it will run
+                if(i!=TextToSpeech.ERROR){
+                    // To Choose language of speech
+                    textToSpeech.setLanguage(Locale.US);
+                }
+            }
+        });
+
+        // Adding OnClickListener
+        btnText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                textToSpeech.speak(CO.getText().toString(),TextToSpeech.QUEUE_FLUSH,null);
+                Toast.makeText(getApplicationContext(), country,Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_daily:
@@ -65,9 +93,12 @@ public class WeatherData extends AppCompatActivity {
             return true;
         });
 
+
+
         // get intent from other activity and get string
         Intent intent = getIntent();
         String url = intent.getStringExtra("url");
+        String userIN = intent.getStringExtra("userIN");
 
         //declare items
         weather_Tittle = (TextView) findViewById(R.id.weather_Tittle);
