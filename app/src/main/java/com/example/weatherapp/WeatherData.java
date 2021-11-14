@@ -35,6 +35,7 @@ public class WeatherData extends AppCompatActivity {
     public String zip_OR_city, temp, feel_like, min_Temp, max_Temp, humidity, pressure, lat, lon, country, description, sunrise, sunset;
     TextView weather_Tittle, CO, feels, minTemp, maxTemp, humid, press, desc, sunriseT, sunsetT;
     TextToSpeech textToSpeech;
+    double tt;
     Button btnText;
     private static final DecimalFormat df =  new DecimalFormat("0.00");
     @Override
@@ -96,6 +97,10 @@ public class WeatherData extends AppCompatActivity {
                 case R.id.action_history:
                     Toast.makeText(WeatherData.this, "History Go!", Toast.LENGTH_SHORT).show();
                     Intent historyIntent =  new Intent( WeatherData.this, HistoryActivity.class);
+                    historyIntent.putExtra("latitude", lat);
+                    historyIntent.putExtra("longitude", lon);
+                    historyIntent.putExtra("city", zip_OR_city);
+                    historyIntent.putExtra("time", tt);
                     startActivity(historyIntent);
                     break;
             }
@@ -227,5 +232,6 @@ public class WeatherData extends AppCompatActivity {
 
         return df.format(C) + "°C";
     }//end of k_to_c
+
 
 } //end of weather_information

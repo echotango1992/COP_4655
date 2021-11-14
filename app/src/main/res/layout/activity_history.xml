@@ -3,20 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"><![CDATA[
     tools:context=".HistoryActivity">
 
-    <TextView
-        android:id="@+id/hello"
-        android:layout_width="139dp"
-        android:layout_height="68dp"
-        android:layout_marginTop="304dp"
-        android:text="HELLO"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    ]]>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation2"
@@ -30,5 +20,15 @@
         app:menu="@menu/bottom_nav_menu"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="673dp" />
+
+    <ListView
+        android:id="@+id/simpleListView"
+        android:layout_width="409dp"
+        android:layout_height="673dp"
+        android:layout_marginTop="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

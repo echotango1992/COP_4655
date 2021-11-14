@@ -16,8 +16,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     //OpenWeatherMaps API info
     public static final String WEATHER_API_KEY = "4935d4d97bed7155923e9de5c455e068";
     public static final String URL = "https://api.openweathermap.org/data/2.5/weather?appid=";
+    public static final String URL2 = "https://api.openweathermap.org/data/2.5/onecall/timemachine?";
     //Intent needed
     public static final String EXTRA_MESSAGE = "com./*EXAMPLE*/.weatherapp.MESSAGE";
     //location GPS part
@@ -39,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView iv_mic;
     private EditText tv_Speech_to_text;
     private static final int REQUEST_CODE_SPEECH_INPUT = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String City_Zip = userIN.getText().toString();
+                gps = new GPSTracker(MainActivity.this);
                 //check if user input is empty
                 if (City_Zip.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Can not enter and empty value \n - Try again.", Toast.LENGTH_SHORT).show();
@@ -105,14 +113,22 @@ public class MainActivity extends AppCompatActivity {
                         Log.e("TAG", "its a Zip-code");
                         if (City_Zip.length() == 5){
                             //correct zip format
-                            onZipGO(City_Zip);
+                            String lat = df.format(gps.getLatitude());
+                            String lon = df.format(gps.getLongitude());
+
+                            Log.e("TAG", "[+] lat is: "  + lat + "\n [+] lon is: " + lon);
+                            onZipGO(City_Zip, lat, lon);
                         } else{
                             //incorrect length show message
                             Toast.makeText(getApplicationContext(), "Incorrect Zip format \n - Try again.", Toast.LENGTH_SHORT).show();
                         }
                     } else {
+                        String lat = df.format(gps.getLatitude());
+                        String lon = df.format(gps.getLongitude());
+
+                        Log.e("TAG", "[+] lat is: "  + lat + "\n [+] lon is: " + lon);
                         Log.e("TAG", "its a City ");
-                        onCityGO(City_Zip);
+                        onCityGO(City_Zip, lat, lon);
                     }
 
                 }
@@ -129,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 if (gps.canGetLocation()){
                     String lat = df.format(gps.getLatitude());
                     String lon = df.format(gps.getLongitude());
+
                     Log.e("TAG", "[+] lat is: "  + lat + "\n [+] lon is: " + lon);
                     onLocationGO(lat, lon);
                 } else {
@@ -157,32 +174,62 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onZipGO(String value){
+
+    public void onZipGO(String value, String lat, String lon){
         //creating url for ZIP
+        long time = new Date().getTime();
+        long fix = time / 1000;
+        String curr = String.valueOf(fix);
+        String url2 = URL2  + "&lat=" + lat + "&lon=" + lon + "&dt=" + curr + "&appid=" + WEATHER_API_KEY;
+        Log.e("TAG", "the url is: " + url2);
         String url = URL + WEATHER_API_KEY + "&zip=" + value;
         Log.e("TAG","the url is: " + url);
         sendURL(url);
+        sendURL2(url2);
     } // end of onZipGO
 
-    public void onCityGO(String value){
+    public void onCityGO(String value, String lat, String lon){
         //creating the url for City
+        long time = new Date().getTime();
+        long fix = time / 1000;
+        String curr = String.valueOf(fix);
+        String url2 = URL2  + "&lat=" + lat + "&lon=" + lon + "&dt=" + time + "&appid=" + WEATHER_API_KEY;
+        Log.e("TAG", "the url is: " + url2);
         String url = URL + WEATHER_API_KEY + "&q=" + value;
         Log.e("TAG", "the url is: " + url);
         sendURL(url);
+        sendURL2(url2);
     }// end of onCityGO
 
     public void onLocationGO(String lat, String lon){
         //creating url for geolocation
+        long time = new Date().getTime();
+        String curr = String.valueOf(time);
         String url = URL + WEATHER_API_KEY + "&lat=" + lat + "&lon=" + lon;
         Log.e("TAG", "the url is: " + url);
+        String url2 = URL2  + "&lat=" + lat + "&lon=" + lon + "&dt=" + curr + "&appid=" + WEATHER_API_KEY;
+        Log.e("TAG", "the url is: " + url2);
         sendURL(url);
+        sendURL2(url2);
     } //end of onLocationGO
+
 
     public void sendURL(String url){
         Toast.makeText(getApplicationContext(), "Getting requested information", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getApplicationContext(),WeatherData.class);
         intent.putExtra("url", url);
         startActivity(intent);
-    } //end of sendURL
+
+    }
+
+    public void sendURL2(String url2){
+        Toast.makeText(getApplicationContext(), "Getting requested information", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(),HistoryActivity.class);
+        intent.putExtra("url", url2);
+        //startActivity(intent);
+
+    }
+
+    //end of sendURL
 
 } //end of MainActivity
